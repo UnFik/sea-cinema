@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Movie {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  title        String? @unique
+  description  String?
+  age_rating   Int? // Assuming age rating is an integer
+  poster_url   String?
+  release_date String?
+  ticket_price Int?
+  seats        Seat[]
+}
+
+model Seat {
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  movieId String?   @db.ObjectId
+  movie   Movie?    @relation(fields: [movieId], references: [id])
+  date    DateTime?
+  number  Int?
+  booked  Boolean?  @default(false)
+  Ticket  Ticket?
+}
+
+model Ticket {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  seat      Seat?    @relation(fields: [seatId], references: [id])
+  seatId    String?  @unique @db.ObjectId
+  totalCost Int
+  createdAt DateTime @default(now())
+}
+
+model Balance {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  amount Int
+}

@@ -2,12 +2,13 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 import { BsFillBellFill, BsChevronCompactDown } from "react-icons/bs";
-import { FaHistory } from "react-icons/fa";
+import { FaHistory, FaWallet, FaMoneyBill } from "react-icons/fa";
 import { FaRegPlayCircle } from "react-icons/fa";
 import { ImFilm } from "react-icons/im";
 import { RxAvatar } from "react-icons/rx";
 import { PiPlayPauseDuotone, PiFilmSlateBold } from "react-icons/pi";
 import logo from "../../public/next.svg";
+import Link from "next/link";
 
 // import AccountMenu from "@/components/AccountMenu";
 import NavbarItem from "./NavbarItem";
@@ -16,7 +17,7 @@ const TOP_OFFSET = 60;
 
 const Navbar = () => {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
-  const [showNav, setShowNav] = useState(false);
+  const [showNav, setShowNav] = useState(true);
   const [showBackground, setShowBackground] = useState(false);
 
   useEffect(() => {
@@ -59,54 +60,57 @@ const Navbar = () => {
         }`}
       >
         <div className="flex-row ml-8 gap-8 hidden lg:flex">
-          <div className="flex items-center gap-2 hover:text-yellow-300">
-            {/* <PiPlayPauseDuotone /> */}
+          <Link
+            href="/"
+            className="flex items-center gap-2 hover:text-yellow-300"
+          >
+            <PiPlayPauseDuotone />
             <NavbarItem label="Now Playing" />
-          </div>
-          <div className="flex items-center gap-2 hover:text-yellow-300">
-            {/* <PiFilmSlateBold /> */}
-            <NavbarItem label="Films" />
-          </div>
-          <div className="flex items-center gap-2 hover:text-yellow-300">
-            {/* <FaHistory /> */}
+          </Link>
+          <Link
+            href="/history"
+            className="flex items-center gap-2 hover:text-yellow-300"
+          >
+            <FaHistory />
             <NavbarItem label="History" />
-          </div>
+          </Link>
         </div>
         <div className="flex-row lg:hidden flex gap-9">
-          <div className="flex-col">
-            {/* <FaRegPlayCircle className="w-6 my-1 mx-auto" /> */}
+          <Link href="/" className="flex-col">
+            <PiPlayPauseDuotone className="w-6 my-1 mx-auto" />
             <NavbarItem label="Playing" />
-          </div>
-          <div className="flex-col">
-            {/* <ImFilm className="w-6 my-1 mx-auto" /> */}
-            <NavbarItem label="Films" />
-          </div>
-          <div className="flex-col">
-            {/* <FaHistory className="w-6 my-1 mx-auto" /> */}
+          </Link>
+          <Link href="/history" className="flex-col">
+            <FaHistory className="w-6 my-1 mx-auto" />
             <NavbarItem label="History" />
-          </div>
-          <div className="flex-col">
-            {/* <RxAvatar className="w-6 my-1 mx-auto" /> */}
-            <NavbarItem label="Profile" />
-          </div>
+          </Link>
+          <Link href="/withdraw" className="flex-col">
+            <FaMoneyBill className="w-6 my-1 mx-auto" />
+            <NavbarItem label="Withdraw" />
+          </Link>
+          <Link href="/topup" className="flex-col">
+            <FaWallet className="w-6 my-1 mx-auto" />
+            <NavbarItem label="Top Up" />
+          </Link>
         </div>
         <div className="hidden lg:flex flex-row ml-auto gap-7 items-center">
           <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
             {/* <BsFillBellFill className="w-6" /> */}
           </div>
-          <div
-            onClick={toggleAccountMenu}
-            className="flex flex-row items-center gap-2 cursor-pointer relative"
+          <Link
+            href="/withdraw"
+            className="flex flex-row items-center gap-2 cursor-pointer relative text-gray-200 lg:hover:text-yellow-300"
           >
-            <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-full overflow-hidden">
-              <img src="/images/avatar.png" alt="" />
-            </div>
-            <BsChevronCompactDown
-              className={`w-4 text-white fill-white transition ${
-                showAccountMenu ? "rotate-180" : "rotate-0"
-              }`}
-            />
-          </div>
+            <FaMoneyBill />
+            <NavbarItem label="Withdraw" />
+          </Link>
+          <Link
+            href="/topup"
+            className="flex flex-row items-center gap-2 cursor-pointer relative text-gray-200 lg:hover:text-yellow-300"
+          >
+            <FaWallet />
+            <NavbarItem label="Top Up" />
+          </Link>
         </div>
       </div>
     </nav>

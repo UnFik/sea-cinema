@@ -11,14 +11,15 @@ datasource db {
 }
 
 model Movie {
-  id           String @id @default(auto()) @map("_id") @db.ObjectId
-  title        String? @unique
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  title        String?  @unique
   description  String?
   age_rating   Int? // Assuming age rating is an integer
   poster_url   String?
   release_date String?
   ticket_price Int?
   seats        Seat[]
+  Ticket       Ticket[]
 }
 
 model Seat {
@@ -28,15 +29,17 @@ model Seat {
   date    DateTime?
   number  Int?
   booked  Boolean?  @default(false)
-  Ticket  Ticket?
 }
 
 model Ticket {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  seat      Seat?    @relation(fields: [seatId], references: [id])
-  seatId    String?  @unique @db.ObjectId
-  totalCost Int
-  createdAt DateTime @default(now())
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  totalPrice Int?
+  createdAt  DateTime @default(now())
+  seats      Int[]
+
+  movie   Movie?  @relation(fields: [movieId], references: [id])
+  movieId String? @db.ObjectId
 }
 
 model Balance {

@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { notFound } from "next/navigation";
 import prismadb from "@/libs/prismadb";
 
 export async function GET() {
@@ -11,7 +10,7 @@ export async function GET() {
   }
 }
 
-export async function POST(req: Request){
+export async function POST(req: Request) {
   try {
     const {
       title,
@@ -20,12 +19,34 @@ export async function POST(req: Request){
       poster_url,
       release_date,
       ticket_price,
-      seats
-    } = await req.json();
+    } = (await req.json()) as {
+      title: string;
+      description: string;
+      age_rating: number;
+      poster_url: string;
+      release_date: string;
+      ticket_price: number;
+    };
 
-    console.log('tes');
+    const body = {
+      title,
+      description,
+      age_rating,
+      poster_url,
+      release_date,
+      ticket_price,
+    };
 
-    if(!title || !description || !age_rating || !poster_url || !release_date || !ticket_price){
+    // console.log('tes');
+
+    if (
+      !body.title ||
+      !body.description ||
+      !body.age_rating ||
+      !body.poster_url ||
+      !body.release_date ||
+      !body.ticket_price
+    ) {
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
@@ -33,21 +54,28 @@ export async function POST(req: Request){
       data: {
         title,
         description,
-        age_rating,
-        poster_url,
         release_date,
+        poster_url,
+        age_rating,
         ticket_price,
-        seats: {
-          create: {
-            number: null,
-          }
-        },
       },
     });
 
+    // const movie = await prismadb.movie.create({
+    //   data: {
+    //     title: "FAST X",
+    //     description:
+    //       "Dom Toretto dan keluarganya menjadi sasaran putra gembong narkoba Hernan Reyes yang pendendam.",
+    //     release_date: "2023-05-17",
+    //     poster_url:
+    //       "https://image.tmdb.org/t/p/w500/fiVW06jE7z9YnO4trhaMEdclSiC.jpg",
+    //     age_rating: 15,
+    //     ticket_price: 53000,
+    //   },
+    // });
 
     const seatsArr = [];
-    for (let i = 0; i < 64; i++) {
+    for (let i = 1; i <= 64; i++) {
       seatsArr.push(
         await prismadb.seat.create({
           data: {
@@ -68,68 +96,11 @@ export async function POST(req: Request){
         seats: {
           connect: seatsArr.map((seat) => ({ id: seat.id })),
         },
-      }, 
+      },
     });
 
     return NextResponse.json(movie);
   } catch (error) {
     return new NextResponse(`Error ${error}`, { status: 500 });
   }
-  
 }
-
-// const res = await fetch("https://seleksi-sea-2023.vercel.app/api/movies");
-// if (!res.ok) {
-//   notFound();
-// }
-// const data = await res.json();
-
-// export async function POST(req: Request) {
-//   try {
-//     const { username, email, password } = (await req.json()) as {
-//       username: string;
-//       email: string;
-//       password: string;
-//     };
-//     const hashedPassword = await bcrypt.hash(password, 12);
-
-//     const user = await prismadb.user.create({
-//       data: {
-//         email,
-//         username,
-//         hashedPassword,
-//         image: "",
-//         emailVerified: new Date(),
-//       },
-//     });
-
-//     if (!username || !email || !password) {
-//       return new NextResponse("Missing fields", { status: 400 });
-//     }
-
-//     const existingUser = await prismadb.user.findUnique({
-//       where: {
-//         email,
-//       },
-//     });
-
-//     if (existingUser) {
-//       return new NextResponse("User already exists", { status: 400 });
-//     }
-
-//     return NextResponse.json({
-//       user: {
-//         name: user.username,
-//         email: user.email,
-//       },
-//     });
-//   } catch (error: any) {
-//     return new NextResponse(
-//       JSON.stringify({
-//         status: "error",
-//         message: error.message,
-//       }),
-//       { status: 500 }
-//     );
-//   }
-// }

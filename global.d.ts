@@ -5,4 +5,7 @@ declare global {
   namespace globalThis {
     var prismadb: PrismaClient;
   }
+  interface Window {
+    my_modal_3: any; // 👈️ turn off type checking
+  }
 }

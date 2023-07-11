@@ -1,26 +1,44 @@
-import React from "react";
-import { notFound } from "next/navigation";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import TopNavbar from "../components/TopNavbar";
 import Navbar from "../components/Navbar";
 import Link from "next/link";
 
-async function getData(title: string) {
-  const res = await fetch(`http://localhost:3000/api/movies/${title}`, {
-    next: { revalidate: 60 },
-  });
-
-  if (!res.ok) {
-    notFound();
-  }
-
-  return res.json();
+interface moviesController {
+  title?: string;
+  poster_url?: string;
+  description?: string;
+  age_rating?: number;
+  release_date?: string;
+  ticket_price?: number;
+  id?: number;
 }
 
-const Movie = async ({ params }: { params: { title: string } }) => {
-  const data = await getData(params.title);
+const Movie = ({ params: { id } }: { params: { id: string } }) => {
+  const [data, setData] = useState<moviesController>();
 
-  const ageRating = (age_rating: number) => {
-    if (age_rating < 13) {
+  useEffect(() => {
+    async function getData() {
+      try {
+        const res = await fetch(`http://localhost:3000/api/movies/${id}`);
+        if (!res.ok) {
+          throw new Error("Error");
+        }
+        const jsonData = await res.json();
+        setData(jsonData.movie);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getData();
+  }, []);
+
+  const ageRating = (age_rating?: number) => {
+    if (age_rating === undefined) {
+      return "/images/su.png";
+    } else if (age_rating < 13) {
       return "/images/su.png";
     } else if (age_rating >= 13 && age_rating < 17) {
       return "/images/r13.png";
@@ -38,33 +56,33 @@ const Movie = async ({ params }: { params: { title: string } }) => {
         <div className="grid grid-row lg:grid-cols-12 w-full h-full gap-5 lg:gap-8">
           <div className="flex flex-row lg:flex-col lg:col-span-3 col-span-6 justify-between">
             <img
-              src={data.poster_url}
+              src={data?.poster_url}
               alt="Film poster"
               className="lg:h-8/12 h-4/12 w-6/12 lg:w-full"
             />
             <div className="flex flex-col mx-auto lg:m-0 gap-8">
-              <Link href={`/${data.title}/ticket`} className="lg:w-full">
+              <Link href={`/${data?.id}/seat`} className="lg:w-full">
                 <div className="btn lg:w-full lg:rounded-none rounded-md bg-yellow-400 text-center px-8 lg:px-3 py-4 font-semibold text-l hover:bg-yellow-300">
                   Buy Ticket
                 </div>
               </Link>
               <img
-                src={ageRating(data.age_rating)}
+                src={data != undefined ? ageRating(data.age_rating) : undefined}
                 alt="age_rating"
                 className="flex lg:hidden w-4/12 lg:w-full mr-auto self-end"
               />
             </div>
           </div>
           <div className="flex flex-col gap-5 col-span-6">
-            <h2 className="text-xl">{data.title}</h2>
-            <p>{data.release_date}</p>
+            <h2 className="text-xl">{data != undefined ? data.title : ""}</h2>
+            <p>{data?.release_date}</p>
             <h4 className="text-l">Description:</h4>
-            <p>{data.description}</p>
+            <p>{data != undefined ? data.description : ""}</p>
             <h4>Price :</h4>
-            <p>{data.ticket_price}</p>
+            <p>Rp {data != undefined ? data.ticket_price : ""}</p>
           </div>
           <img
-            src={ageRating(data.age_rating)}
+            src={data != undefined ? ageRating(data.age_rating) : undefined}
             alt="age_rating"
             className="hidden lg:flex"
           />

@@ -1,22 +1,38 @@
-import React, { Key } from "react";
+"use client";
+
+import React, { Key, useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import TopNavbar from "./components/TopNavbar";
 import Link from "next/link";
-import fetcher from "@/libs/fetcher";
-// import User
 
-async function getData() {
-  const res = await fetch("http://localhost:3000/api/movies");
+// async function getData() {
+//   const res = await fetch("http://localhost:3000/api/movies");
 
-  if (!res.ok) {
-    throw new Error("Error");
-  }
-  return res.json();
-}
+//   if (!res.ok) {
+//     throw new Error("Error");
+//   }
+//   return res.json();
+// }
 
-export default async function Home() {
+export default function Home() {
+  const [data, setData] = useState([]);
 
-  const data = await getData();
+  useEffect(() => {
+    async function getData() {
+      try {
+        const res = await fetch("http://localhost:3000/api/movies");
+        if (!res.ok) {
+          throw new Error("Error");
+        }
+        const jsonData = await res.json();
+        setData(jsonData);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getData();
+  }, []);
 
   const ageRating = (age_rating: number) => {
     if (age_rating < 13) {
@@ -28,6 +44,9 @@ export default async function Home() {
     }
   };
 
+  if (!data || data === undefined) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="bg-blue w-full h-full relative">
@@ -38,7 +57,41 @@ export default async function Home() {
         {data.map(
           (item: {
             title: string;
-            id: Key | null | undefined;
+            id: number;
+            poster_url: string;
+            age_rating: number;
+          }) => (
+            <Link
+              href={`/${item.id}`}
+              className="card w-full bg-base-100 shadow-xl  lg:hover:scale-110"
+              key={item.id}
+            >
+              <figure>
+                <img
+                  src={item.poster_url}
+                  alt="poster"
+                  className="w-full object-contain px-2"
+                />
+              </figure>
+              <div className="card-body px-4">
+                <h2 className="card-title w-full text-ellipsis overflow-hidden text-center mt-4 lg:text-xl lg:h-14">
+                  {item.title}
+                </h2>
+                <div className="card-actions gap-3 justify-center flex my-2">
+                  <img
+                    src={ageRating(item.age_rating)}
+                    alt="age rating"
+                    className="my-4"
+                  />
+                </div>
+              </div>
+            </Link>
+          )
+        )}
+        {/* {data.map(
+          (item: {
+            title: string;
+            id: Key;
             poster_url: string | undefined;
             age_rating: any;
           }) => (
@@ -61,14 +114,14 @@ export default async function Home() {
                 <div className="card-actions gap-3 justify-center flex my-2">
                   <img
                     src={ageRating(item.age_rating)}
-                    alt=""
+                    alt="age rating"
                     className="my-4"
                   />
                 </div>
               </div>
             </Link>
           )
-        )}
+        )} */}
       </div>
     </div>
   );

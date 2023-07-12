@@ -84,20 +84,17 @@ const Theater = ({ params: { id } }: { params: { id: string } }) => {
   };
 
   const handleForm = async () => {
-    const res = await fetch(
-      `https://sea-cinema-nujh.vercel.app/api/movies/${id}/ticket`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          name,
-          selectedSeats,
-          totalPrice,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await fetch(`http://localhost:3000/api/movies/${id}/ticket`, {
+      method: "POST",
+      body: JSON.stringify({
+        name,
+        selectedSeats,
+        totalPrice,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     if (!res.ok) {
       alert("Error");
       return;

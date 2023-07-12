@@ -27,7 +27,7 @@ export default function TopUp() {
 
     const parsedAmount = Number(amount);
 
-    const res = await fetch("https://sea-cinema-nujh.vercel.app/api/balance", {
+    const res = await fetch("http://localhost:3000/api/balance", {
       method: "POST",
       body: JSON.stringify({
         amount: parsedAmount,

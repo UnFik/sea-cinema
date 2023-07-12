@@ -21,9 +21,7 @@ const Movie = ({ params: { id } }: { params: { id: string } }) => {
   useEffect(() => {
     async function getData() {
       try {
-        const res = await fetch(
-          `https://sea-cinema-nujh.vercel.app/api/movies/${id}`
-        );
+        const res = await fetch(`http://localhost:3000/api/movies/${id}`);
         if (!res.ok) {
           throw new Error("Error");
         }

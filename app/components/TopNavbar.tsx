@@ -10,9 +10,7 @@ const TopNavbar = () => {
   useEffect(() => {
     async function getData() {
       try {
-        const res = await fetch(
-          `https://sea-cinema-nujh.vercel.app/api/balance`
-        );
+        const res = await fetch(`http://localhost:3000/api/balance`);
         if (!res.ok) {
           throw new Error("Error");
         }

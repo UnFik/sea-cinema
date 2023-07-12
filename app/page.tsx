@@ -6,7 +6,7 @@ import TopNavbar from "./components/TopNavbar";
 import Link from "next/link";
 
 // async function getData() {
-//   const res = await fetch("https://sea-cinema-nujh.vercel.app/api/movies");
+//   const res = await fetch("http://localhost:3000/api/movies");
 
 //   if (!res.ok) {
 //     throw new Error("Error");
@@ -21,7 +21,7 @@ export default function Home() {
     async function getData() {
       try {
         const res = await fetch(
-          "https://sea-cinema-nujh.vercel.app/api/movies"
+          "http://localhost:3000/api/movies"
         );
         if (!res.ok) {
           throw new Error("Error");

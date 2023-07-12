@@ -24,7 +24,7 @@ const History = ({ params: { id } }: { params: { id: string } }) => {
     async function getData() {
       try {
         const res = await fetch(
-          `https://sea-cinema-nujh.vercel.app/api/movies/${id}/ticket`
+          `http://localhost:3000/api/movies/${id}/ticket`
         );
         if (!res.ok) {
           throw new Error("Error");

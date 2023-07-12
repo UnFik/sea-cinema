@@ -22,7 +22,7 @@ const Movie = ({ params: { id } }: { params: { id: string } }) => {
     async function getData() {
       try {
         const res = await fetch(
-          `https://sea-cinema-nujh.vercel.appapi/movies/${id}`
+          `https://sea-cinema-nujh.vercel.app/api/movies/${id}`
         );
         if (!res.ok) {
           throw new Error("Error");

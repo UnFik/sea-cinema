@@ -29,7 +29,9 @@ const TicketDetail = ({
   useEffect(() => {
     async function getData() {
       try {
-        const res = await fetch(`https://sea-cinema-nujh.vercel.app/api/${ticketId}`);
+        const res = await fetch(
+          `https://sea-cinema-nujh.vercel.app/api/${ticketId}`
+        );
         if (!res.ok) {
           throw new Error("Error");
         }
@@ -44,9 +46,12 @@ const TicketDetail = ({
   }, []);
 
   const handleCancel = async () => {
-    const res = await fetch(`https://sea-cinema-nujh.vercel.app/api/${ticketId}`, {
-      method: "DELETE",
-    });
+    const res = await fetch(
+      `https://sea-cinema-nujh.vercel.app/api/${ticketId}`,
+      {
+        method: "DELETE",
+      }
+    );
     if (!res.ok) {
       alert("Error");
       throw new Error("Error");

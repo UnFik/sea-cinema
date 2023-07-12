@@ -46,7 +46,7 @@ const Navbar = () => {
   return (
     <nav
       className={`w-full bg-secondary lg:sticky lg:h-21 fixed lg:top-0 transition ease-linear duration-700 ${
-        showNav ? "bottom-0" : "-bottom-20"
+        showNav ? "bottom-0" : "-bottom-32"
       }`}
     >
       <div

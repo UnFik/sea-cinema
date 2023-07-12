@@ -22,7 +22,7 @@ const Movie = ({ params: { id } }: { params: { id: string } }) => {
     async function getData() {
       try {
         const res = await fetch(
-          `https://sea-cinema-nujh.vercel.app/api/movies/${id}`
+          `https://sea-cinema-nujh.vercel.appapi/movies/${id}`
         );
         if (!res.ok) {
           throw new Error("Error");
@@ -68,6 +68,9 @@ const Movie = ({ params: { id } }: { params: { id: string } }) => {
                   Buy Ticket
                 </div>
               </Link>
+              <h4 className="flex lg:hidden">
+                Price : Rp {data != undefined ? data.ticket_price : ""}
+              </h4>
               <img
                 src={data != undefined ? ageRating(data.age_rating) : undefined}
                 alt="age_rating"
@@ -77,11 +80,14 @@ const Movie = ({ params: { id } }: { params: { id: string } }) => {
           </div>
           <div className="flex flex-col gap-5 col-span-6">
             <h2 className="text-xl">{data != undefined ? data.title : ""}</h2>
-            <p>{data?.release_date}</p>
-            <h4 className="text-l">Description:</h4>
-            <p>{data != undefined ? data.description : ""}</p>
-            <h4>Price :</h4>
-            <p>Rp {data != undefined ? data.ticket_price : ""}</p>
+            <h4 className="hidden lg:flex">
+              Price : Rp {data != undefined ? data.ticket_price : ""}
+            </h4>
+            <p>Release Date : {data?.release_date}</p>
+            <div className="flex flex-col gap-3">
+              <h4 className="text-l">Description:</h4>
+              <p>{data != undefined ? data.description : ""}</p>
+            </div>
           </div>
           <img
             src={data != undefined ? ageRating(data.age_rating) : undefined}

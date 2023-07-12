@@ -144,7 +144,7 @@ const Theater = ({ params: { id } }: { params: { id: string } }) => {
     <div className="bg-blue w-full h-full relative text-gray-200">
       <TopNavbar />
       <Navbar />
-      <div className="ml-4 lg:ml-8 lg:px-6 lg:pr-12 mt-4 ">
+      <div className="ml-4 lg:ml-8 lg:px-6 lg:pr-12 mt-4">
         <h1 className="uppercase my-6 text-center font-bold lg:text-2xl">
           {data[0]?.movie?.title || "Loading..."}
         </h1>
@@ -182,7 +182,7 @@ const Theater = ({ params: { id } }: { params: { id: string } }) => {
           Screen
         </div>
       </div>
-      <div className="lg:mx-8 lg:px-6 lg:pr-12 seat mt-6 px-3 grid grid-cols-9 gap-4 w-full justify-center text-start lg:text-center">
+      <div className="lg:mx-8 lg:px-6 lg:pr-12 seat mt-6 pe-2 grid grid-cols-9 gap-4 w-full justify-center text-start lg:text-center">
         {Array.isArray(data) && data.length > 0 ? (
           data.map((item: { number: number; booked: boolean }) =>
             (item.number - 4) % 8 === 0 ? (
@@ -223,6 +223,7 @@ const Theater = ({ params: { id } }: { params: { id: string } }) => {
           <p className="w-full mx-auto">Loading...</p>
         )}
       </div>
+      <div className="my-10">&nbsp;</div>
       <div
         onClick={() => window.my_modal_3.showModal()}
         className="btn bg-green-600 hover:bg-green-700 cursor-pointer w-full justify-center text-center text-3xl py-3 mt-10"

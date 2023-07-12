@@ -184,6 +184,7 @@ const Theater = ({ params: { id } }: { params: { id: string } }) => {
         {Array.isArray(data) && data.length > 0 ? (
           data.map((item: { number: number; booked: boolean }) =>
             (item.number - 4) % 8 === 0 ? (
+              // eslint-disable-next-line react/jsx-key
               <div className="col-span-2 w-full grid grid-cols-2">
                 <div
                   onClick={() => toggleBook(item.number)}

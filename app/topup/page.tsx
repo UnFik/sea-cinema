@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Input from "../components/Input";
 import Select from "react-select";
 import { useRouter } from "next/navigation";
@@ -13,7 +13,7 @@ const options = [
   { value: "OVO", label: "OVO" },
 ];
 
-export default function page() {
+export default function TopUp() {
   const router = useRouter();
 
   const [cardNumber, setCardNumber] = useState<number | null>(null);

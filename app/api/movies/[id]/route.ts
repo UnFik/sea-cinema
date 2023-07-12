@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import prismadb from "@/libs/prismadb";
 
 export async function GET(
   request: Request,
@@ -15,6 +16,6 @@ export async function GET(
 
     return NextResponse.json({ movie });
   } catch (error) {
-    return new NextResponse("Title Doesnt Exist", { status: 400 });
+    return new NextResponse(`Title Doesnt Exist ${error}`, { status: 400 });
   }
 }

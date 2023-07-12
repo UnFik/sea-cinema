@@ -14,7 +14,7 @@ model Movie {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   title        String?  @unique
   description  String?
-  age_rating   Int? // Assuming age rating is an integer
+  age_rating   Int?
   poster_url   String?
   release_date String?
   ticket_price Int?

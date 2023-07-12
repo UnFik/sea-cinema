@@ -8,6 +8,8 @@ import Input from "@/app/components/Input";
 import Navbar from "@/app/components/Navbar";
 
 const Theater = ({ params: { id } }: { params: { id: string } }) => {
+  const url = new URL(window.location.href);
+  const urlOrigin = url.origin;
   const router = useRouter();
 
   const [name, setName] = useState("");
@@ -82,17 +84,20 @@ const Theater = ({ params: { id } }: { params: { id: string } }) => {
   };
 
   const handleForm = async () => {
-    const res = await fetch(`http://localhost:3000/api/movies/${id}/ticket`, {
-      method: "POST",
-      body: JSON.stringify({
-        name,
-        selectedSeats,
-        totalPrice,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `https://sea-cinema-nujh.vercel.app/api/movies/${id}/ticket`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          name,
+          selectedSeats,
+          totalPrice,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (!res.ok) {
       alert("Error");
       return;
@@ -104,13 +109,10 @@ const Theater = ({ params: { id } }: { params: { id: string } }) => {
   useEffect(() => {
     async function getData() {
       try {
-        const res = await fetch(
-          `http://localhost:3000/api/movies/${id}/seats`,
-          {
-            method: "GET",
-          }
-        );
-        const resBalance = await fetch("http://localhost:3000/api/balance");
+        const res = await fetch(`${urlOrigin}/api/movies/${id}/seats`, {
+          method: "GET",
+        });
+        const resBalance = await fetch(`${urlOrigin}/api/balance`);
         if (!res.ok || !resBalance.ok) {
           throw new Error("Error");
         }
@@ -139,10 +141,10 @@ const Theater = ({ params: { id } }: { params: { id: string } }) => {
   totalPrice = data[0]?.movie.ticket_price * count || 0;
 
   return (
-    <div className="bg-blue w-full h-full relative">
+    <div className="bg-blue w-full h-full relative text-gray-200">
       <TopNavbar />
       <Navbar />
-      <div className="ml-4 lg:ml-8 lg:px-6 lg:pr-12 mt-4">
+      <div className="ml-4 lg:ml-8 lg:px-6 lg:pr-12 mt-4 ">
         <h1 className="uppercase my-6 text-center font-bold lg:text-2xl">
           {data[0]?.movie?.title || "Loading..."}
         </h1>

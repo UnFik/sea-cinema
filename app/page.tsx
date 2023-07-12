@@ -6,7 +6,7 @@ import TopNavbar from "./components/TopNavbar";
 import Link from "next/link";
 
 // async function getData() {
-//   const res = await fetch("http://localhost:3000/api/movies");
+//   const res = await fetch("https://sea-cinema-nujh.vercel.app/api/movies");
 
 //   if (!res.ok) {
 //     throw new Error("Error");
@@ -20,7 +20,9 @@ export default function Home() {
   useEffect(() => {
     async function getData() {
       try {
-        const res = await fetch("http://localhost:3000/api/movies");
+        const res = await fetch(
+          "https://sea-cinema-nujh.vercel.app/api/movies"
+        );
         if (!res.ok) {
           throw new Error("Error");
         }
@@ -49,11 +51,11 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-blue w-full h-full relative">
+    <div className="bg-primary bg-center bg-cover w-full h-full relative pb-40">
       <TopNavbar />
       <Navbar />
       {/* <Carousel /> */}
-      <div className="lg:ml-8 grid grid-cols-2 lg:grid-cols-4 lg:px-16 lg:gap-y-3">
+      <div className="lg:ml-8 grid grid-cols-2 lg:grid-cols-4 lg:px-16 lg:gap-y-3 text-gray-200">
         {data.map(
           (item: {
             title: string;
@@ -88,40 +90,6 @@ export default function Home() {
             </Link>
           )
         )}
-        {/* {data.map(
-          (item: {
-            title: string;
-            id: Key;
-            poster_url: string | undefined;
-            age_rating: any;
-          }) => (
-            <Link
-              href={`/${item.title}`}
-              className="card w-full bg-base-100 shadow-xl  lg:hover:scale-110"
-              key={item.id}
-            >
-              <figure>
-                <img
-                  src={item.poster_url}
-                  alt="poster"
-                  className="w-full object-contain px-2"
-                />
-              </figure>
-              <div className="card-body px-4">
-                <h2 className="card-title w-full text-ellipsis overflow-hidden text-center mt-4 lg:text-xl lg:h-14">
-                  {item.title}
-                </h2>
-                <div className="card-actions gap-3 justify-center flex my-2">
-                  <img
-                    src={ageRating(item.age_rating)}
-                    alt="age rating"
-                    className="my-4"
-                  />
-                </div>
-              </div>
-            </Link>
-          )
-        )} */}
       </div>
     </div>
   );

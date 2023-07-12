@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         primary: "#201e35",
+        navPrimary: "#171626",
         secondary: "#2f2d4b",
       },
       backgroundColor: {

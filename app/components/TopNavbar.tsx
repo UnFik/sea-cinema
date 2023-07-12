@@ -10,7 +10,9 @@ const TopNavbar = () => {
   useEffect(() => {
     async function getData() {
       try {
-        const res = await fetch(`http://localhost:3000/api/balance`);
+        const res = await fetch(
+          `https://sea-cinema-nujh.vercel.app/api/balance`
+        );
         if (!res.ok) {
           throw new Error("Error");
         }
@@ -25,7 +27,7 @@ const TopNavbar = () => {
   }, []);
 
   return (
-    <nav className="w-full bg-primary">
+    <nav className="w-full bg-secondary lg:bg-primary">
       <div className="px-4 md:px-16 py-6">
         <div className="flex h-full justify-between items-center ml-auto">
           <a href="/">

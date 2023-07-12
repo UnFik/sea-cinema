@@ -1,13 +1,8 @@
 "use client";
 
 import React, { useCallback, useEffect, useState } from "react";
-import { BsFillBellFill, BsChevronCompactDown } from "react-icons/bs";
 import { FaHistory, FaWallet, FaMoneyBill } from "react-icons/fa";
-import { FaRegPlayCircle } from "react-icons/fa";
-import { ImFilm } from "react-icons/im";
-import { RxAvatar } from "react-icons/rx";
-import { PiPlayPauseDuotone, PiFilmSlateBold } from "react-icons/pi";
-import logo from "../../public/next.svg";
+import { PiPlayPauseDuotone } from "react-icons/pi";
 import Link from "next/link";
 
 // import AccountMenu from "@/components/AccountMenu";
@@ -62,33 +57,33 @@ const Navbar = () => {
         <div className="flex-row ml-8 gap-8 hidden lg:flex">
           <Link
             href="/"
-            className="flex items-center gap-2 hover:text-yellow-300"
+            className="flex items-center gap-2 text-gray-200 hover:text-yellow-300"
           >
             <PiPlayPauseDuotone />
             <NavbarItem label="Now Playing" />
           </Link>
           <Link
             href="/history"
-            className="flex items-center gap-2 hover:text-yellow-300"
+            className="flex items-center gap-2 text-gray-200 hover:text-yellow-300"
           >
             <FaHistory />
             <NavbarItem label="History" />
           </Link>
         </div>
         <div className="flex-row lg:hidden flex gap-9">
-          <Link href="/" className="flex-col">
+          <Link href="/" className="flex-col text-gray-200">
             <PiPlayPauseDuotone className="w-6 my-1 mx-auto" />
             <NavbarItem label="Playing" />
           </Link>
-          <Link href="/history" className="flex-col">
+          <Link href="/history" className="flex-col text-gray-200">
             <FaHistory className="w-6 my-1 mx-auto" />
             <NavbarItem label="History" />
           </Link>
-          <Link href="/withdraw" className="flex-col">
+          <Link href="/withdraw" className="flex-col text-gray-200">
             <FaMoneyBill className="w-6 my-1 mx-auto" />
             <NavbarItem label="Withdraw" />
           </Link>
-          <Link href="/topup" className="flex-col">
+          <Link href="/topup" className="flex-col text-gray-200">
             <FaWallet className="w-6 my-1 mx-auto" />
             <NavbarItem label="Top Up" />
           </Link>

@@ -21,7 +21,9 @@ const Movie = ({ params: { id } }: { params: { id: string } }) => {
   useEffect(() => {
     async function getData() {
       try {
-        const res = await fetch(`http://localhost:3000/api/movies/${id}`);
+        const res = await fetch(
+          `https://sea-cinema-nujh.vercel.app/api/movies/${id}`
+        );
         if (!res.ok) {
           throw new Error("Error");
         }
@@ -51,7 +53,7 @@ const Movie = ({ params: { id } }: { params: { id: string } }) => {
     <div className="w-full h-full relative ">
       <TopNavbar />
       <Navbar />
-      <div className="container ml-2 lg:ml-8 px-4 md:px-16 py-6">
+      <div className="container ml-2 lg:ml-8 px-4 md:px-16 py-6 text-gray-200">
         <h1 className="text-3xl mt-5 mb-4">Now Playing</h1>
         <div className="grid grid-row lg:grid-cols-12 w-full h-full gap-5 lg:gap-8">
           <div className="flex flex-row lg:flex-col lg:col-span-3 col-span-6 justify-between">
@@ -62,7 +64,7 @@ const Movie = ({ params: { id } }: { params: { id: string } }) => {
             />
             <div className="flex flex-col mx-auto lg:m-0 gap-8">
               <Link href={`/${data?.id}/seat`} className="lg:w-full">
-                <div className="btn lg:w-full lg:rounded-none rounded-md bg-yellow-400 text-center px-8 lg:px-3 py-4 font-semibold text-l hover:bg-yellow-300">
+                <div className="btn lg:w-full lg:rounded-none rounded-md bg-yellow-400 text-black text-center px-8 lg:px-3 py-4 font-semibold text-l hover:bg-yellow-300">
                   Buy Ticket
                 </div>
               </Link>

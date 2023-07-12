@@ -24,7 +24,7 @@ const History = ({ params: { id } }: { params: { id: string } }) => {
     async function getData() {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/movies/${id}/ticket`
+          `https://sea-cinema-nujh.vercel.app/api/movies/${id}/ticket`
         );
         if (!res.ok) {
           throw new Error("Error");
@@ -40,7 +40,7 @@ const History = ({ params: { id } }: { params: { id: string } }) => {
   }, []);
 
   return (
-    <div className="bg-blue w-full h-full relative">
+    <div className="bg-blue w-full h-full relative text-gray-200">
       <TopNavbar />
       <Navbar />
       <div className="container lg:ml-8 px-4 md:px-16 py-6 mt-5">
@@ -52,7 +52,7 @@ const History = ({ params: { id } }: { params: { id: string } }) => {
               key={ticket.id}
               className="w-full rounded-md lg:py-5 lg:px-10 px-5 pt-2 pb-6 ticket-gradient shadow-xl cursor-pointer"
             >
-              <div className="text-3xl text-center border-b-4 border-black p-3 font-bold">
+              <div className="text-3xl text-center border-b-4 border-gray-200 p-3 font-bold">
                 {ticket.movie.title}
               </div>
               <div className="flex flex-row justify-between mt-5 h-full">
@@ -75,7 +75,7 @@ const History = ({ params: { id } }: { params: { id: string } }) => {
                   {ticket.seats?.map((seatNumber, index) => (
                     <div
                       key={seatNumber}
-                      className={`text-black text-3xl ${
+                      className={`text-3xl ${
                         index % 2 === 1 ? "break-all" : ""
                       }`}
                     >

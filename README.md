@@ -18,6 +18,10 @@ https://sea-cinema-nujh.vercel.app/
 https://documenter.getpostman.com/view/24451038/2s946cftqi#6c44ef21-9f3f-4d03-9e20-dbf837044dc6
 
 ## Installation
+Clone repo
+```bash
+git clone https://github.com/UnFik/sea-cinema.git
+```
 
 Install sea-cinema with npm
 
